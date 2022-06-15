@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from databases import models
-from routes import contributor_routes, github_routes
+from routes import github_routes
 from utils import sql
 
 models.Base.metadata.create_all(bind=sql.engine)
@@ -21,7 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(contributor_routes.router)
 app.include_router(github_routes.router)
 
 @app.get("/")
